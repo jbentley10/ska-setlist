@@ -46,8 +46,8 @@ const SKA_HIPHOP_TRACKS = [
   { order: 6,  artist: "John Legend and The Roots", track: "The Fire",                         album: "Wake Up!",                     bpm: 94,  key: "Fm",  genre: "Soul / Hip Hop",      length: "4:01", mix_note: "From your vinyl! Driving live organic instrumentation bridges styles" },
   { order: 7,  artist: "Operation Ivy",         track: "Room Without A Window",                album: "Energy",                       bpm: 95,  key: "D",   genre: "Ska",                 length: "2:55", mix_note: "Swaying backbeat pairs nicely alongside conscious lyricism" },
   { order: 8,  artist: "Kendrick Lamar",        track: "Poetic Justice",                       album: "Good Kid, M.A.A.D City",       bpm: 136, key: "Am",  genre: "West Coast Hip Hop",  length: "5:00", mix_note: "From your vinyl! Halftime feel makes this blend feel like 68 BPM" },
-  { order: 9,  artist: "Flying Lotus",          track: "Zodiac Shit",                          album: "Cosmogramma",                  bpm: 85,  key: "A",   genre: "Experimental Beat",   length: "2:44", mix_note: "From your vinyl! Psychedelic jazz-hop textures shift the late night vibe" },
-  { order: 10, artist: "No Doubt",              track: "Sixteen",                              album: "Tragic Kingdom",               bpm: 88,  key: "Gm",  genre: "Ska / Pop",           length: "3:42", mix_note: "Closer — syncs effortlessly with FlyLo's head-nod tempo" },
+  { order: 9,  artist: "Flying Lotus",          track: "More (feat. Anderson .Paak)",          album: "Flamagra",                     bpm: 101, key: "Ebm", genre: "Funk / Electronic",   length: "3:02", mix_note: "From your vinyl! Bouncy bassline and Paak's flow match the 2-Tone energy flawlessly" },
+  { order: 10, artist: "No Doubt",              track: "Sixteen",                              album: "Tragic Kingdom",               bpm: 88,  key: "Gm",  genre: "Ska / Pop",           length: "3:42", mix_note: "Closer — syncs effortlessly with the tail end of the FlyLo groove" },
 ];
 
 function timeToSeconds(t) {
