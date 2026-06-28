@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { getTransitionFlag } from "./utils/harmonicTransition";
+import MyMusicBrowser from "./components/MyMusicBrowser";
+import MyMixPanel from "./components/MyMixPanel";
 
 const HYPE_TRACKS = [
   { order: 1,  artist: "Madness",               track: "One Step Beyond",                       album: "One Step Beyond...",           bpm: 155, key: "Cm",  genre: "2-Tone Ska",          length: "2:18", mix_note: "Iconic opener — that count-in gets the room instantly" },
@@ -38,25 +41,25 @@ const CHILL_TRACKS = [
 ];
 
 const SKA_HIPHOP_TRACKS = [
-  { order: 1,  artist: "Jack Lenz",                       track: "Goosebumps Original Theme Song",                        album: "Goosebumps (Original Television Soundtrack)", bpm: 103, key: "Gm",  genre: "TV Theme / Orchestral",  length: "1:05", transition_flag: "green",  mix_note: "Spooky opener — short and punchy, sets a playful tone before dropping into ska" },
-  { order: 2,  artist: "Madness",                         track: "My Girl",                                               album: "One Step Beyond...",                          bpm: 100, key: "Bb",  genre: "2-Tone Ska",             length: "2:44", transition_flag: "green",  mix_note: "Breezy rhythm with plenty of space for a quick transition out" },
-  { order: 3,  artist: "Pete Rock & C.L. Smooth",         track: "I Got a Love (LP Version)",                             album: "The Main Ingredient",                         bpm: 99,  key: "Gm",  genre: "Golden Era Hip Hop",     length: "5:11", transition_flag: "green",  mix_note: "From your vinyl! Pure brass samples lock into the 2-Tone swing" },
-  { order: 4,  artist: "No Doubt",                        track: "Sunday Morning",                                        album: "Tragic Kingdom",                              bpm: 96,  key: "Eb",  genre: "Ska / Pop",              length: "4:33", transition_flag: "yellow", mix_note: "Drop down slightly. Bass line grounds the upcoming abstract beats" },
-  { order: 5,  artist: "MF Doom, Mr. Fantastik",          track: "Rapp Snitch Knishes",                                   album: "MM..FOOD (20th Anniversary Edition)",          bpm: 96,  key: "G",   genre: "Indie Rap",              length: "2:53", transition_flag: "green",  mix_note: "From your vinyl! Pitch match with No Doubt perfectly. Legendary string groove" },
-  { order: 6,  artist: "Less Than Jake",                  track: "The Science of Selling Yourself Short",                 album: "Anthem (CD Only)",                            bpm: 90,  key: "G",   genre: "Ska Punk",               length: "3:06", transition_flag: "yellow", mix_note: "Kick up the energy — fast horn-driven ska-punk injection mid-set" },
-  { order: 7,  artist: "John Legend, The Roots, CL Smooth", track: "Our Generation (The Hope of the World)",             album: "Wake Up!",                                    bpm: 95,  key: "Fm",  genre: "Soul / Hip Hop",         length: "3:16", transition_flag: "green",  mix_note: "From your vinyl! Driving live organic instrumentation bridges styles" },
-  { order: 8,  artist: "Kendrick Lamar",                  track: "Alright",                                               album: "To Pimp A Butterfly",                         bpm: 110, key: "Dm",  genre: "West Coast Hip Hop",     length: "3:39", transition_flag: "yellow", mix_note: "Anthemic energy — live brass textures carry the groove forward" },
-  { order: 9,  artist: "Catbite",                         track: "Stay",                                                  album: "Nice One",                                    bpm: 130, key: "G",   genre: "Ska",                    length: "3:42", transition_flag: "yellow", mix_note: "Modern ska sweetness — clean melodic hook keeps the floor moving" },
-  { order: 10, artist: "Run The Jewels, Killer Mike",     track: "ooh la la",                                             album: "ooh la la",                                   bpm: 125, key: "Am",  genre: "Hip Hop",                length: "3:03", transition_flag: "green",  mix_note: "Hypnotic loop — pairs well with the ska swing coming before it" },
-  { order: 11, artist: "Descendents",                     track: "Nothing with You",                                      album: "Cool to Be You",                              bpm: 130, key: "C",   genre: "Punk / Pop Punk",        length: "2:29", transition_flag: "green",  mix_note: "Quick punk burst — short and cathartic before settling back down" },
-  { order: 12, artist: "Catbite",                         track: "Bidi Bidi Bom Bom",                                     album: "Nice One",                                    bpm: 100, key: "C",   genre: "Ska",                    length: "3:26", transition_flag: "yellow", mix_note: "Fun ska cover — crowd-pleasing energy, great sing-along moment" },
-  { order: 13, artist: "The Notorious B.I.G.",            track: "Juicy (2005 Remaster)",                                 album: "Ready to Die (The Remaster)",                 bpm: 96,  key: "Bb",  genre: "Golden Era Hip Hop",     length: "5:02", transition_flag: "yellow", mix_note: "From your vinyl! Classic breezy loop, timeless feel" },
-  { order: 14, artist: "Flying Lotus, Anderson .Paak",    track: "More",                                                  album: "Flamagra",                                    bpm: 126, key: "Ebm", genre: "Experimental / Neo-Soul", length: "4:17", transition_flag: "green",  mix_note: "From your vinyl! Psychedelic neo-soul textures drift the late-night vibe" },
-  { order: 15, artist: "Kendrick Lamar, Drake",           track: "Poetic Justice",                                        album: "good kid, m.A.A.d city (Deluxe)",             bpm: 136, key: "Fm",  genre: "West Coast Hip Hop",     length: "5:00", transition_flag: "green",  mix_note: "From your vinyl! Halftime feel makes this blend feel like 68 BPM" },
-  { order: 16, artist: "Jeff Rosenstock",                 track: "Ohio Tpke",                                             album: "WORRY.",                                      bpm: 110, key: "Em",  genre: "Ska-Punk",               length: "3:24", transition_flag: "green",  mix_note: "Explosive ska-punk burst — Rosenstock's raw energy after the smooth hip hop cool-down" },
-  { order: 17, artist: "The English Beat",                track: "I Confess",                                             album: "Special Beat Service",                        bpm: 118, key: "G",   genre: "2-Tone Ska",             length: "3:52", transition_flag: "green",  mix_note: "Smooth 2-Tone closer — shuffling groove and melodic hooks wind the set down perfectly" },
+  { order: 1,  artist: "Jack Lenz",                       track: "Goosebumps Original Theme Song",                        album: "Goosebumps (Original Television Soundtrack)", bpm: 103, key: "Gm",  genre: "TV Theme / Orchestral",  length: "1:05", mix_note: "Spooky opener — short and punchy, sets a playful tone before dropping into ska" },
+  { order: 2,  artist: "Madness",                         track: "My Girl",                                               album: "One Step Beyond...",                          bpm: 100, key: "Bb",  genre: "2-Tone Ska",             length: "2:44", mix_note: "Breezy rhythm with plenty of space for a quick transition out" },
+  { order: 3,  artist: "Pete Rock & C.L. Smooth",         track: "I Got a Love (LP Version)",                             album: "The Main Ingredient",                         bpm: 99,  key: "Gm",  genre: "Golden Era Hip Hop",     length: "5:11", mix_note: "From your vinyl! Pure brass samples lock into the 2-Tone swing" },
+  { order: 4,  artist: "No Doubt",                        track: "Sunday Morning",                                        album: "Tragic Kingdom",                              bpm: 96,  key: "Eb",  genre: "Ska / Pop",              length: "4:33", mix_note: "Drop down slightly. Bass line grounds the upcoming abstract beats" },
+  { order: 5,  artist: "MF Doom, Mr. Fantastik",          track: "Rapp Snitch Knishes",                                   album: "MM..FOOD (20th Anniversary Edition)",          bpm: 96,  key: "G",   genre: "Indie Rap",              length: "2:53", mix_note: "From your vinyl! Pitch match with No Doubt perfectly. Legendary string groove" },
+  { order: 6,  artist: "Less Than Jake",                  track: "The Science of Selling Yourself Short",                 album: "Anthem (CD Only)",                            bpm: 90,  key: "G",   genre: "Ska Punk",               length: "3:06", mix_note: "Kick up the energy — fast horn-driven ska-punk injection mid-set" },
+  { order: 7,  artist: "John Legend, The Roots, CL Smooth", track: "Our Generation (The Hope of the World)",             album: "Wake Up!",                                    bpm: 95,  key: "Fm",  genre: "Soul / Hip Hop",         length: "3:16", mix_note: "From your vinyl! Driving live organic instrumentation bridges styles" },
+  { order: 8,  artist: "Kendrick Lamar",                  track: "Alright",                                               album: "To Pimp A Butterfly",                         bpm: 110, key: "Dm",  genre: "West Coast Hip Hop",     length: "3:39", mix_note: "Anthemic energy — live brass textures carry the groove forward" },
+  { order: 9,  artist: "Catbite",                         track: "Stay",                                                  album: "Nice One",                                    bpm: 130, key: "G",   genre: "Ska",                    length: "3:42", mix_note: "Modern ska sweetness — clean melodic hook keeps the floor moving" },
+  { order: 10, artist: "Run The Jewels, Killer Mike",     track: "ooh la la",                                             album: "ooh la la",                                   bpm: 125, key: "Am",  genre: "Hip Hop",                length: "3:03", mix_note: "Hypnotic loop — pairs well with the ska swing coming before it" },
+  { order: 11, artist: "Descendents",                     track: "Nothing with You",                                      album: "Cool to Be You",                              bpm: 130, key: "C",   genre: "Punk / Pop Punk",        length: "2:29", mix_note: "Quick punk burst — short and cathartic before settling back down" },
+  { order: 12, artist: "Catbite",                         track: "Bidi Bidi Bom Bom",                                     album: "Nice One",                                    bpm: 100, key: "C",   genre: "Ska",                    length: "3:26", mix_note: "Fun ska cover — crowd-pleasing energy, great sing-along moment" },
+  { order: 13, artist: "The Notorious B.I.G.",            track: "Juicy (2005 Remaster)",                                 album: "Ready to Die (The Remaster)",                 bpm: 96,  key: "Bb",  genre: "Golden Era Hip Hop",     length: "5:02", mix_note: "From your vinyl! Classic breezy loop, timeless feel" },
+  { order: 14, artist: "Flying Lotus, Anderson .Paak",    track: "More",                                                  album: "Flamagra",                                    bpm: 126, key: "Ebm", genre: "Experimental / Neo-Soul", length: "4:17", mix_note: "From your vinyl! Psychedelic neo-soul textures drift the late-night vibe" },
+  { order: 15, artist: "Kendrick Lamar, Drake",           track: "Poetic Justice",                                        album: "good kid, m.A.A.d city (Deluxe)",             bpm: 136, key: "Fm",  genre: "West Coast Hip Hop",     length: "5:00", mix_note: "From your vinyl! Halftime feel makes this blend feel like 68 BPM" },
+  { order: 16, artist: "Jeff Rosenstock",                 track: "Ohio Tpke",                                             album: "WORRY.",                                      bpm: 110, key: "Em",  genre: "Ska-Punk",               length: "3:24", mix_note: "Explosive ska-punk burst — Rosenstock's raw energy after the smooth hip hop cool-down" },
+  { order: 17, artist: "The English Beat",                track: "I Confess",                                             album: "Special Beat Service",                        bpm: 118, key: "G",   genre: "2-Tone Ska",             length: "3:52", mix_note: "Smooth 2-Tone closer — shuffling groove and melodic hooks wind the set down perfectly" },
 ];
-               
+
 function timeToSeconds(t) {
   const [m, s] = t.split(":").map(Number);
   return m * 60 + s;
@@ -94,7 +97,46 @@ const TRANSITION_FLAG_STYLES = {
   red:    { bg: "#dc262628", color: "#f87171", border: "#dc262655", label: "Bad"   },
 };
 
-function SetTable({ tracks, accentColor }) {
+// Theme token sets
+const DARK = {
+  mode: "dark",
+  bg: "#0d0d0d",
+  sidebar: "#080808",
+  sidebarBorder: "#1a1a1a",
+  surface: "#1a1a1a",
+  surfaceHover: "#1c1c1c",
+  border: "#2a2a2a",
+  borderSubtle: "#1a1a1a",
+  text: "#f0f0f0",
+  textMuted: "#555",
+  textDim: "#2a2a2a",
+  textSecondary: "#777",
+  textTable: "#e0e0e0",
+  rowAlt: "#080808",
+  bpmColor: "#ffffff",
+  inputBg: "#1a1a1a",
+};
+
+const LIGHT = {
+  mode: "light",
+  bg: "#f4f4f5",
+  sidebar: "#ffffff",
+  sidebarBorder: "#e4e4e7",
+  surface: "#ffffff",
+  surfaceHover: "#f4f4f5",
+  border: "#e4e4e7",
+  borderSubtle: "#ececec",
+  text: "#18181b",
+  textMuted: "#a1a1aa",
+  textDim: "#d4d4d8",
+  textSecondary: "#71717a",
+  textTable: "#27272a",
+  rowAlt: "#fafafa",
+  bpmColor: "#18181b",
+  inputBg: "#f4f4f5",
+};
+
+function SetTable({ tracks, accentColor, theme: T }) {
   const [sortField, setSortField] = useState("order");
 
   const sorted = [...tracks].sort((a, b) => {
@@ -104,6 +146,7 @@ function SetTable({ tracks, accentColor }) {
     return 0;
   });
 
+  const inSetOrder = [...tracks].sort((a, b) => a.order - b.order);
   const avgBpm = Math.round(tracks.reduce((a, t) => a + t.bpm, 0) / tracks.length);
   const minBpm = Math.min(...tracks.map(t => t.bpm));
   const maxBpm = Math.max(...tracks.map(t => t.bpm));
@@ -111,10 +154,7 @@ function SetTable({ tracks, accentColor }) {
   return (
     <>
       {/* Stats + sort */}
-      <div style={{
-        maxWidth: 1000, margin: "0 auto 20px",
-        display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center",
-      }}>
+      <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center", marginBottom: 20 }}>
         {[
           { label: "Tracks", value: tracks.length },
           { label: "Total Time", value: totalTime(tracks) },
@@ -122,20 +162,20 @@ function SetTable({ tracks, accentColor }) {
           { label: "BPM Range", value: `${minBpm}–${maxBpm}` },
         ].map(s => (
           <div key={s.label} style={{
-            background: "#1a1a1a", borderRadius: 8, padding: "10px 18px",
-            border: "1px solid #2a2a2a",
+            background: T.surface, borderRadius: 8, padding: "10px 18px",
+            border: `1px solid ${T.border}`,
           }}>
             <div style={{ fontSize: 20, fontWeight: 800, color: accentColor }}>{s.value}</div>
-            <div style={{ fontSize: 10, color: "#555", textTransform: "uppercase", letterSpacing: "0.1em" }}>{s.label}</div>
+            <div style={{ fontSize: 10, color: T.textMuted, textTransform: "uppercase", letterSpacing: "0.1em" }}>{s.label}</div>
           </div>
         ))}
         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ fontSize: 11, color: "#444", textTransform: "uppercase", letterSpacing: "0.1em" }}>Sort:</span>
+          <span style={{ fontSize: 11, color: T.textMuted, textTransform: "uppercase", letterSpacing: "0.1em" }}>Sort:</span>
           {[["order","Set Order"], ["bpm","BPM"], ["key","Key"]].map(([f, label]) => (
             <button key={f} onClick={() => setSortField(f)} style={{
-              background: sortField === f ? accentColor : "#1a1a1a",
-              color: sortField === f ? "#000" : "#666",
-              border: "1px solid #2a2a2a",
+              background: sortField === f ? accentColor : T.surface,
+              color: sortField === f ? "#000" : T.textMuted,
+              border: `1px solid ${T.border}`,
               borderRadius: 5, padding: "5px 12px",
               fontSize: 11, fontWeight: 700, cursor: "pointer",
               letterSpacing: "0.05em",
@@ -145,7 +185,7 @@ function SetTable({ tracks, accentColor }) {
       </div>
 
       {/* Table */}
-      <div style={{ maxWidth: 1000, margin: "0 auto", overflowX: "auto" }}>
+      <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
           <thead>
             <tr style={{ borderBottom: `2px solid ${accentColor}` }}>
@@ -153,58 +193,63 @@ function SetTable({ tracks, accentColor }) {
                 <th key={h} style={{
                   textAlign: "left", padding: "10px 10px",
                   fontSize: 10, fontWeight: 700, letterSpacing: "0.15em",
-                  textTransform: "uppercase", color: "#555",
+                  textTransform: "uppercase", color: T.textMuted,
+                  background: T.bg,
                 }}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {sorted.map((t, i) => (
-              <tr key={t.order}
-                style={{ borderBottom: "1px solid #1a1a1a", background: i % 2 === 0 ? "transparent" : "#080808" }}
-                onMouseEnter={e => e.currentTarget.style.background = "#1c1c1c"}
-                onMouseLeave={e => e.currentTarget.style.background = i % 2 === 0 ? "transparent" : "#080808"}
-              >
-                <td style={{ padding: "12px 10px", color: "#333", fontWeight: 800, fontSize: 12 }}>{t.order}</td>
-                <td style={{ padding: "12px 10px", fontWeight: 700, color: "#e0e0e0", whiteSpace: "nowrap" }}>{t.artist}</td>
-                <td style={{ padding: "12px 10px", color: accentColor, fontWeight: 600 }}>"{t.track}"</td>
-                <td style={{ padding: "12px 10px", color: "#777", fontStyle: "italic", fontSize: 12 }}>{t.album}</td>
-                <td style={{ padding: "12px 10px", color: "#fff", fontWeight: 800, fontVariantNumeric: "tabular-nums" }}>{t.bpm}</td>
-                <td style={{ padding: "12px 10px" }}>
-                  <span style={{
-                    background: keyColor(t.key) + "28",
-                    color: keyColor(t.key),
-                    border: `1px solid ${keyColor(t.key)}55`,
-                    borderRadius: 4, padding: "2px 7px",
-                    fontSize: 11, fontWeight: 700,
-                  }}>{t.key}</span>
-                </td>
-                <td style={{ padding: "12px 10px" }}>
-                  {t.transition_flag && (() => {
-                    const s = TRANSITION_FLAG_STYLES[t.transition_flag];
-                    return (
+            {sorted.map((t, i) => {
+              const setPos = inSetOrder.findIndex(x => x.order === t.order);
+              const prevTrack = setPos > 0 ? inSetOrder[setPos - 1] : null;
+              const flag = prevTrack ? getTransitionFlag(prevTrack.key, t.key) : null;
+              const flagStyle = flag ? TRANSITION_FLAG_STYLES[flag] : null;
+
+              return (
+                <tr key={t.order}
+                  style={{ borderBottom: `1px solid ${T.borderSubtle}`, background: i % 2 === 0 ? "transparent" : T.rowAlt }}
+                  onMouseEnter={e => e.currentTarget.style.background = T.surfaceHover}
+                  onMouseLeave={e => e.currentTarget.style.background = i % 2 === 0 ? "transparent" : T.rowAlt}
+                >
+                  <td style={{ padding: "12px 10px", color: T.textDim, fontWeight: 800, fontSize: 12 }}>{t.order}</td>
+                  <td style={{ padding: "12px 10px", fontWeight: 700, color: T.textTable, whiteSpace: "nowrap" }}>{t.artist}</td>
+                  <td style={{ padding: "12px 10px", color: accentColor, fontWeight: 600 }}>"{t.track}"</td>
+                  <td style={{ padding: "12px 10px", color: T.textSecondary, fontStyle: "italic", fontSize: 12 }}>{t.album}</td>
+                  <td style={{ padding: "12px 10px", color: T.bpmColor, fontWeight: 800, fontVariantNumeric: "tabular-nums" }}>{t.bpm}</td>
+                  <td style={{ padding: "12px 10px" }}>
+                    <span style={{
+                      background: keyColor(t.key) + "28",
+                      color: keyColor(t.key),
+                      border: `1px solid ${keyColor(t.key)}55`,
+                      borderRadius: 4, padding: "2px 7px",
+                      fontSize: 11, fontWeight: 700,
+                    }}>{t.key}</span>
+                  </td>
+                  <td style={{ padding: "12px 10px" }}>
+                    {flagStyle ? (
                       <span style={{
-                        background: s.bg,
-                        color: s.color,
-                        border: `1px solid ${s.border}`,
+                        background: flagStyle.bg,
+                        color: flagStyle.color,
+                        border: `1px solid ${flagStyle.border}`,
                         borderRadius: 4, padding: "2px 8px",
                         fontSize: 11, fontWeight: 700, whiteSpace: "nowrap",
-                      }}>{s.label}</span>
-                    );
-                  })()}
-                </td>
-                <td style={{ padding: "12px 10px", color: "#555", fontSize: 11 }}>{t.genre}</td>
-                <td style={{ padding: "12px 10px", color: "#666", fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap" }}>{t.length}</td>
-                <td style={{ padding: "12px 10px", color: "#444", fontSize: 12, maxWidth: 220 }}>{t.mix_note}</td>
-              </tr>
-            ))}
+                      }}>{flagStyle.label}</span>
+                    ) : null}
+                  </td>
+                  <td style={{ padding: "12px 10px", color: T.textMuted, fontSize: 11 }}>{t.genre}</td>
+                  <td style={{ padding: "12px 10px", color: T.textSecondary, fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap" }}>{t.length}</td>
+                  <td style={{ padding: "12px 10px", color: T.textMuted, fontSize: 12, maxWidth: 220 }}>{t.mix_note}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
 
       {/* BPM arc */}
-      <div style={{ maxWidth: 1000, margin: "28px auto 0" }}>
-        <div style={{ fontSize: 10, color: "#333", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 8 }}>
+      <div style={{ marginTop: 28 }}>
+        <div style={{ fontSize: 10, color: T.textDim, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 8 }}>
           BPM Arc · Set Order · Bar color = key
         </div>
         <div style={{ display: "flex", alignItems: "flex-end", gap: 4, height: 56 }}>
@@ -222,72 +267,229 @@ function SetTable({ tracks, accentColor }) {
           })}
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4 }}>
-          <span style={{ fontSize: 10, color: "#2a2a2a" }}>Track 1</span>
-          <span style={{ fontSize: 10, color: "#2a2a2a" }}>Track {tracks.length}</span>
+          <span style={{ fontSize: 10, color: T.textDim }}>Track 1</span>
+          <span style={{ fontSize: 10, color: T.textDim }}>Track {tracks.length}</span>
         </div>
       </div>
 
-      <p style={{ maxWidth: 1000, margin: "16px auto 0", fontSize: 11, color: "#2a2a2a", lineHeight: 1.6 }}>
+      <p style={{ marginTop: 16, fontSize: 11, color: T.textDim, lineHeight: 1.6 }}>
         BPM and key are approximate — always verify by ear on your actual pressings. Key sources: Tunebat / SongBPM / chord databases.
       </p>
     </>
   );
 }
 
+const MIX_STORAGE_KEY = "ska_setlist_my_mix";
+
+function loadSavedMix() {
+  try {
+    const raw = localStorage.getItem(MIX_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+// Nav item for sidebar
+function NavItem({ label, active, accent, onClick, badge, theme: T }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        width: "100%", textAlign: "left",
+        padding: "8px 14px",
+        borderRadius: 7,
+        border: "none",
+        background: active ? accent + "18" : "transparent",
+        color: active ? accent : T.textSecondary,
+        fontWeight: active ? 700 : 500,
+        fontSize: 13,
+        cursor: "pointer",
+        letterSpacing: "0.01em",
+        transition: "background 0.15s, color 0.15s",
+        position: "relative",
+      }}
+      onMouseEnter={e => { if (!active) { e.currentTarget.style.background = T.surfaceHover; e.currentTarget.style.color = T.text; } }}
+      onMouseLeave={e => { if (!active) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = T.textSecondary; } }}
+    >
+      <span>{label}</span>
+      {badge != null && badge > 0 && (
+        <span style={{
+          background: "#22c55e", color: "#000",
+          borderRadius: 10, minWidth: 18, height: 18, padding: "0 5px",
+          fontSize: 10, fontWeight: 900,
+          display: "inline-flex", alignItems: "center", justifyContent: "center",
+        }}>{badge}</span>
+      )}
+    </button>
+  );
+}
+
+const VIEWS = {
+  hype:    { accent: "#f5c518", subtitle: "Ska · 2-Tone · Ska-Punk · Melodic Punk" },
+  chill:   { accent: "#7eb8d4", subtitle: "Slow Ska · 2-Tone · Laid-back Grooves" },
+  hiphop:  { accent: "#a855f7", subtitle: "Boom-Bap meets 2-Tone Backbeats (Sourced from Vinyl)" },
+  mymusic: { accent: "#22c55e", subtitle: "Vinyl Collection" },
+  mymix:   { accent: "#22c55e", subtitle: "Custom Mix Builder" },
+};
+
+const VIEW_TITLES = {
+  hype: "⚡ Hype Set", chill: "🌙 Chill Set", hiphop: "🎧 Ska Hip Hop",
+  mymusic: "My Music", mymix: "My Mix",
+};
+
 export default function SetList() {
-  const [activeTab, setActiveTab] = useState("hype");
+  const [activeView, setActiveView] = useState("mymusic");
+  const [myMix, setMyMix] = useState(loadSavedMix);
+  const [isDark, setIsDark] = useState(true);
 
-  const tabs = [
-    { id: "hype",  label: "⚡ Hype Set",  accent: "#f5c518", subtitle: "Ska · 2-Tone · Ska-Punk · Melodic Punk" },
-    { id: "chill", label: "🌙 Chill Set", accent: "#7eb8d4", subtitle: "Slow Ska · 2-Tone · Laid-back Grooves" },
-    { id: "hiphop", label: "🎧 Ska Hip Hop", accent: "#a855f7", subtitle: "Boom-Bap meets 2-Tone Backbeats (Sourced from Vinyl)" },
-  ];
+  const T = isDark ? DARK : LIGHT;
+  const { accent, subtitle } = VIEWS[activeView];
 
-  const active = tabs.find(t => t.id === activeTab);
+  function addToMix(track) {
+    setMyMix(prev => [...prev, track]);
+    setActiveView("mymix");
+  }
+
+  function removeFromMix(index) {
+    setMyMix(prev => prev.filter((_, i) => i !== index));
+  }
+
+  function reorderMix(newOrder) {
+    setMyMix(newOrder);
+  }
+
+  function saveMix() {
+    localStorage.setItem(MIX_STORAGE_KEY, JSON.stringify(myMix));
+  }
 
   return (
     <div style={{
-      background: "#0d0d0d",
-      minHeight: "100vh",
-      padding: "32px 24px",
+      display: "flex", minHeight: "100vh",
       fontFamily: "'Helvetica Neue', Arial, sans-serif",
-      color: "#f0f0f0",
+      background: T.bg, color: T.text,
+      transition: "background 0.2s, color 0.2s",
     }}>
-      {/* Header */}
-      <div style={{ maxWidth: 1000, margin: "0 auto 24px" }}>
-        <div style={{ marginBottom: 6 }}>
-          <span style={{
-            fontSize: 11, fontWeight: 700, letterSpacing: "0.2em",
-            textTransform: "uppercase", color: active.accent,
-            borderBottom: `2px solid ${active.accent}`, paddingBottom: 2,
-            transition: "color 0.3s, border-color 0.3s",
-          }}>Rosemary Hi-Fi · Open Turntables Night · Indio</span>
+
+      {/* ── Left Sidebar ── */}
+      <aside style={{
+        width: 220, flexShrink: 0,
+        background: T.sidebar,
+        borderRight: `1px solid ${T.sidebarBorder}`,
+        display: "flex", flexDirection: "column",
+        position: "sticky", top: 0, height: "100vh", overflowY: "auto",
+      }}>
+        {/* Branding */}
+        <div style={{ padding: "20px 16px 16px", borderBottom: `1px solid ${T.sidebarBorder}` }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: T.textMuted, marginBottom: 4 }}>
+            Rosemary Hi-Fi
+          </div>
+          <div style={{ fontSize: 14, fontWeight: 900, letterSpacing: "-0.01em", color: T.text, lineHeight: 1.2 }}>
+            SkankinToaster
+          </div>
+          <div style={{ fontSize: 11, color: T.textMuted, marginTop: 1 }}>1-Hour Vinyl Set</div>
         </div>
-        <h1 style={{ fontSize: 28, fontWeight: 900, margin: "4px 0 2px", letterSpacing: "-0.02em" }}>
-          SkankinToaster's 1-Hour Vinyl Set
-        </h1>
-        <p style={{ color: "#555", fontSize: 13, margin: 0 }}>{active.subtitle}</p>
-      </div>
 
-      {/* Tabs */}
-      <div style={{ maxWidth: 1000, margin: "0 auto 28px", display: "flex", gap: 8 }}>
-        {tabs.map(tab => (
-          <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
-            padding: "10px 22px",
-            borderRadius: 8,
-            border: activeTab === tab.id ? `2px solid ${tab.accent}` : "2px solid #2a2a2a",
-            background: activeTab === tab.id ? tab.accent + "18" : "transparent",
-            color: activeTab === tab.id ? tab.accent : "#444",
-            fontWeight: 700, fontSize: 13, cursor: "pointer",
-            letterSpacing: "0.03em",
-            transition: "all 0.2s",
-          }}>{tab.label}</button>
-        ))}
-      </div>
+        {/* My Music — prominent */}
+        <div style={{ padding: "16px 10px 8px" }}>
+          <button
+            onClick={() => setActiveView("mymusic")}
+            style={{
+              display: "block", width: "100%", textAlign: "left",
+              padding: "12px 14px", borderRadius: 10,
+              border: activeView === "mymusic" ? `1.5px solid ${accent}` : `1.5px solid transparent`,
+              background: activeView === "mymusic" ? "#22c55e18" : T.mode === "dark" ? "#22c55e0a" : "#f0fdf4",
+              cursor: "pointer", transition: "all 0.15s",
+            }}
+            onMouseEnter={e => { if (activeView !== "mymusic") e.currentTarget.style.borderColor = "#22c55e44"; }}
+            onMouseLeave={e => { if (activeView !== "mymusic") e.currentTarget.style.borderColor = "transparent"; }}
+          >
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#22c55e", marginBottom: 3 }}>
+              My Music
+            </div>
+            <div style={{ fontSize: 12, color: activeView === "mymusic" ? "#22c55e" : T.textSecondary }}>
+              Vinyl Collection
+            </div>
+          </button>
+        </div>
 
-      {activeTab === "hype" && <SetTable tracks={HYPE_TRACKS} accentColor="#f5c518" />}
-      {activeTab === "chill" && <SetTable tracks={CHILL_TRACKS} accentColor="#7eb8d4" />}
-      {activeTab === "hiphop" && <SetTable tracks={SKA_HIPHOP_TRACKS} accentColor="#a855f7" />}
+        {/* Divider + Mixes section */}
+        <div style={{ padding: "8px 14px 6px" }}>
+          <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: T.textMuted }}>
+            Mixes
+          </div>
+        </div>
+
+        <nav style={{ padding: "0 10px", flex: 1 }}>
+          <NavItem label="⚡ Hype Set"    active={activeView === "hype"}    accent="#f5c518" onClick={() => setActiveView("hype")}    theme={T} />
+          <NavItem label="🌙 Chill Set"   active={activeView === "chill"}   accent="#7eb8d4" onClick={() => setActiveView("chill")}   theme={T} />
+          <NavItem label="🎧 Ska Hip Hop" active={activeView === "hiphop"}  accent="#a855f7" onClick={() => setActiveView("hiphop")}  theme={T} />
+          <div style={{ marginTop: 4, borderTop: `1px solid ${T.sidebarBorder}`, paddingTop: 4 }}>
+            <NavItem
+              label="🎛️ My Mix"
+              active={activeView === "mymix"}
+              accent="#22c55e"
+              onClick={() => setActiveView("mymix")}
+              badge={myMix.length}
+              theme={T}
+            />
+          </div>
+        </nav>
+
+        {/* Theme toggle */}
+        <div style={{ padding: "12px 16px", borderTop: `1px solid ${T.sidebarBorder}` }}>
+          <button
+            onClick={() => setIsDark(d => !d)}
+            style={{
+              display: "flex", alignItems: "center", gap: 8,
+              background: T.surface, border: `1px solid ${T.border}`,
+              borderRadius: 8, padding: "7px 12px",
+              color: T.textSecondary, cursor: "pointer", fontSize: 12, fontWeight: 600,
+              width: "100%", transition: "all 0.15s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.color = T.text; e.currentTarget.style.borderColor = T.textMuted; }}
+            onMouseLeave={e => { e.currentTarget.style.color = T.textSecondary; e.currentTarget.style.borderColor = T.border; }}
+          >
+            <span style={{ fontSize: 15 }}>{isDark ? "☀️" : "🌙"}</span>
+            {isDark ? "Light mode" : "Dark mode"}
+          </button>
+        </div>
+      </aside>
+
+      {/* ── Main content ── */}
+      <main style={{ flex: 1, padding: "32px 32px 48px", overflowX: "auto", minWidth: 0 }}>
+        {/* Page header */}
+        <div style={{ marginBottom: 28 }}>
+          <div style={{ marginBottom: 4 }}>
+            <span style={{
+              fontSize: 11, fontWeight: 700, letterSpacing: "0.18em",
+              textTransform: "uppercase", color: accent,
+              borderBottom: `2px solid ${accent}`, paddingBottom: 2,
+            }}>Open Turntables Night · Indio</span>
+          </div>
+          <h1 style={{ fontSize: 26, fontWeight: 900, margin: "4px 0 2px", letterSpacing: "-0.02em", color: T.text }}>
+            {VIEW_TITLES[activeView]}
+          </h1>
+          <p style={{ color: T.textMuted, fontSize: 13, margin: 0 }}>{subtitle}</p>
+        </div>
+
+        {/* View content */}
+        {activeView === "hype"    && <SetTable tracks={HYPE_TRACKS}       accentColor="#f5c518" theme={T} />}
+        {activeView === "chill"   && <SetTable tracks={CHILL_TRACKS}      accentColor="#7eb8d4" theme={T} />}
+        {activeView === "hiphop"  && <SetTable tracks={SKA_HIPHOP_TRACKS} accentColor="#a855f7" theme={T} />}
+        {activeView === "mymusic" && <MyMusicBrowser onAddToMix={addToMix} theme={T} />}
+        {activeView === "mymix"   && (
+          <MyMixPanel
+            mix={myMix}
+            onRemove={removeFromMix}
+            onClear={() => setMyMix([])}
+            onSave={saveMix}
+            onReorder={reorderMix}
+            theme={T}
+          />
+        )}
+      </main>
     </div>
   );
 }
