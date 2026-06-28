@@ -38,23 +38,23 @@ const CHILL_TRACKS = [
 ];
 
 const SKA_HIPHOP_TRACKS = [
-  { order: 1,  artist: "Jack Lenz",                       track: "Goosebumps Original Theme Song",                        album: "Goosebumps (Original Television Soundtrack)", bpm: 103, key: "Gm",  genre: "TV Theme / Orchestral",  length: "1:05", mix_note: "Spooky opener — short and punchy, sets a playful tone before dropping into ska" },
-  { order: 2,  artist: "Madness",                         track: "My Girl",                                               album: "One Step Beyond...",                          bpm: 100, key: "Bb",  genre: "2-Tone Ska",             length: "2:44", mix_note: "Breezy rhythm with plenty of space for a quick transition out" },
-  { order: 3,  artist: "Pete Rock & C.L. Smooth",         track: "I Got a Love (LP Version)",                             album: "The Main Ingredient",                         bpm: 99,  key: "Gm",  genre: "Golden Era Hip Hop",     length: "5:11", mix_note: "From your vinyl! Pure brass samples lock into the 2-Tone swing" },
-  { order: 4,  artist: "No Doubt",                        track: "Sunday Morning",                                        album: "Tragic Kingdom",                              bpm: 96,  key: "Eb",  genre: "Ska / Pop",              length: "4:33", mix_note: "Drop down slightly. Bass line grounds the upcoming abstract beats" },
-  { order: 5,  artist: "MF Doom, Mr. Fantastik",          track: "Rapp Snitch Knishes",                                   album: "MM..FOOD (20th Anniversary Edition)",          bpm: 96,  key: "G",   genre: "Indie Rap",              length: "2:53", mix_note: "From your vinyl! Pitch match with No Doubt perfectly. Legendary string groove" },
-  { order: 6,  artist: "Less Than Jake",                  track: "The Science of Selling Yourself Short",                 album: "Anthem (CD Only)",                            bpm: 90,  key: "G",   genre: "Ska Punk",               length: "3:06", mix_note: "Kick up the energy — fast horn-driven ska-punk injection mid-set" },
-  { order: 7,  artist: "John Legend, The Roots, CL Smooth", track: "Our Generation (The Hope of the World)",             album: "Wake Up!",                                    bpm: 95,  key: "Fm",  genre: "Soul / Hip Hop",         length: "3:16", mix_note: "From your vinyl! Driving live organic instrumentation bridges styles" },
-  { order: 8,  artist: "Kendrick Lamar",                  track: "Alright",                                               album: "To Pimp A Butterfly",                         bpm: 110, key: "Dm",  genre: "West Coast Hip Hop",     length: "3:39", mix_note: "Anthemic energy — live brass textures carry the groove forward" },
-  { order: 9,  artist: "Catbite",                         track: "Stay",                                                  album: "Nice One",                                    bpm: 130, key: "G",   genre: "Ska",                    length: "3:42", mix_note: "Modern ska sweetness — clean melodic hook keeps the floor moving" },
-  { order: 10, artist: "Run The Jewels, Killer Mike",     track: "ooh la la",                                             album: "ooh la la",                                   bpm: 125, key: "Am",  genre: "Hip Hop",                length: "3:03", mix_note: "Hypnotic loop — pairs well with the ska swing coming before it" },
-  { order: 11, artist: "Descendents",                     track: "Nothing with You",                                      album: "Cool to Be You",                              bpm: 130, key: "C",   genre: "Punk / Pop Punk",        length: "2:29", mix_note: "Quick punk burst — short and cathartic before settling back down" },
-  { order: 12, artist: "Catbite",                         track: "Bidi Bidi Bom Bom",                                     album: "Nice One",                                    bpm: 100, key: "C",   genre: "Ska",                    length: "3:26", mix_note: "Fun ska cover — crowd-pleasing energy, great sing-along moment" },
-  { order: 13, artist: "The Notorious B.I.G.",            track: "Juicy (2005 Remaster)",                                 album: "Ready to Die (The Remaster)",                 bpm: 96,  key: "Bb",  genre: "Golden Era Hip Hop",     length: "5:02", mix_note: "From your vinyl! Classic breezy loop, timeless feel" },
-  { order: 14, artist: "Flying Lotus, Anderson .Paak",    track: "More",                                                  album: "Flamagra",                                    bpm: 126, key: "Ebm", genre: "Experimental / Neo-Soul", length: "4:17", mix_note: "From your vinyl! Psychedelic neo-soul textures drift the late-night vibe" },
-  { order: 15, artist: "Kendrick Lamar, Drake",           track: "Poetic Justice",                                        album: "good kid, m.A.A.d city (Deluxe)",             bpm: 136, key: "Fm",  genre: "West Coast Hip Hop",     length: "5:00", mix_note: "From your vinyl! Halftime feel makes this blend feel like 68 BPM" },
-  { order: 16, artist: "Jeff Rosenstock",                 track: "Ohio Tpke",                                             album: "WORRY.",                                      bpm: 110, key: "Em",  genre: "Ska-Punk",               length: "3:24", mix_note: "Explosive ska-punk burst — Rosenstock's raw energy after the smooth hip hop cool-down" },
-  { order: 17, artist: "The English Beat",                track: "I Confess",                                             album: "Special Beat Service",                        bpm: 118, key: "G",   genre: "2-Tone Ska",             length: "3:52", mix_note: "Smooth 2-Tone closer — shuffling groove and melodic hooks wind the set down perfectly" },
+  { order: 1,  artist: "Jack Lenz",                       track: "Goosebumps Original Theme Song",                        album: "Goosebumps (Original Television Soundtrack)", bpm: 103, key: "Gm",  genre: "TV Theme / Orchestral",  length: "1:05", transition_flag: "green",  mix_note: "Spooky opener — short and punchy, sets a playful tone before dropping into ska" },
+  { order: 2,  artist: "Madness",                         track: "My Girl",                                               album: "One Step Beyond...",                          bpm: 100, key: "Bb",  genre: "2-Tone Ska",             length: "2:44", transition_flag: "green",  mix_note: "Breezy rhythm with plenty of space for a quick transition out" },
+  { order: 3,  artist: "Pete Rock & C.L. Smooth",         track: "I Got a Love (LP Version)",                             album: "The Main Ingredient",                         bpm: 99,  key: "Gm",  genre: "Golden Era Hip Hop",     length: "5:11", transition_flag: "green",  mix_note: "From your vinyl! Pure brass samples lock into the 2-Tone swing" },
+  { order: 4,  artist: "No Doubt",                        track: "Sunday Morning",                                        album: "Tragic Kingdom",                              bpm: 96,  key: "Eb",  genre: "Ska / Pop",              length: "4:33", transition_flag: "yellow", mix_note: "Drop down slightly. Bass line grounds the upcoming abstract beats" },
+  { order: 5,  artist: "MF Doom, Mr. Fantastik",          track: "Rapp Snitch Knishes",                                   album: "MM..FOOD (20th Anniversary Edition)",          bpm: 96,  key: "G",   genre: "Indie Rap",              length: "2:53", transition_flag: "green",  mix_note: "From your vinyl! Pitch match with No Doubt perfectly. Legendary string groove" },
+  { order: 6,  artist: "Less Than Jake",                  track: "The Science of Selling Yourself Short",                 album: "Anthem (CD Only)",                            bpm: 90,  key: "G",   genre: "Ska Punk",               length: "3:06", transition_flag: "yellow", mix_note: "Kick up the energy — fast horn-driven ska-punk injection mid-set" },
+  { order: 7,  artist: "John Legend, The Roots, CL Smooth", track: "Our Generation (The Hope of the World)",             album: "Wake Up!",                                    bpm: 95,  key: "Fm",  genre: "Soul / Hip Hop",         length: "3:16", transition_flag: "green",  mix_note: "From your vinyl! Driving live organic instrumentation bridges styles" },
+  { order: 8,  artist: "Kendrick Lamar",                  track: "Alright",                                               album: "To Pimp A Butterfly",                         bpm: 110, key: "Dm",  genre: "West Coast Hip Hop",     length: "3:39", transition_flag: "yellow", mix_note: "Anthemic energy — live brass textures carry the groove forward" },
+  { order: 9,  artist: "Catbite",                         track: "Stay",                                                  album: "Nice One",                                    bpm: 130, key: "G",   genre: "Ska",                    length: "3:42", transition_flag: "yellow", mix_note: "Modern ska sweetness — clean melodic hook keeps the floor moving" },
+  { order: 10, artist: "Run The Jewels, Killer Mike",     track: "ooh la la",                                             album: "ooh la la",                                   bpm: 125, key: "Am",  genre: "Hip Hop",                length: "3:03", transition_flag: "green",  mix_note: "Hypnotic loop — pairs well with the ska swing coming before it" },
+  { order: 11, artist: "Descendents",                     track: "Nothing with You",                                      album: "Cool to Be You",                              bpm: 130, key: "C",   genre: "Punk / Pop Punk",        length: "2:29", transition_flag: "green",  mix_note: "Quick punk burst — short and cathartic before settling back down" },
+  { order: 12, artist: "Catbite",                         track: "Bidi Bidi Bom Bom",                                     album: "Nice One",                                    bpm: 100, key: "C",   genre: "Ska",                    length: "3:26", transition_flag: "yellow", mix_note: "Fun ska cover — crowd-pleasing energy, great sing-along moment" },
+  { order: 13, artist: "The Notorious B.I.G.",            track: "Juicy (2005 Remaster)",                                 album: "Ready to Die (The Remaster)",                 bpm: 96,  key: "Bb",  genre: "Golden Era Hip Hop",     length: "5:02", transition_flag: "yellow", mix_note: "From your vinyl! Classic breezy loop, timeless feel" },
+  { order: 14, artist: "Flying Lotus, Anderson .Paak",    track: "More",                                                  album: "Flamagra",                                    bpm: 126, key: "Ebm", genre: "Experimental / Neo-Soul", length: "4:17", transition_flag: "green",  mix_note: "From your vinyl! Psychedelic neo-soul textures drift the late-night vibe" },
+  { order: 15, artist: "Kendrick Lamar, Drake",           track: "Poetic Justice",                                        album: "good kid, m.A.A.d city (Deluxe)",             bpm: 136, key: "Fm",  genre: "West Coast Hip Hop",     length: "5:00", transition_flag: "green",  mix_note: "From your vinyl! Halftime feel makes this blend feel like 68 BPM" },
+  { order: 16, artist: "Jeff Rosenstock",                 track: "Ohio Tpke",                                             album: "WORRY.",                                      bpm: 110, key: "Em",  genre: "Ska-Punk",               length: "3:24", transition_flag: "green",  mix_note: "Explosive ska-punk burst — Rosenstock's raw energy after the smooth hip hop cool-down" },
+  { order: 17, artist: "The English Beat",                track: "I Confess",                                             album: "Special Beat Service",                        bpm: 118, key: "G",   genre: "2-Tone Ska",             length: "3:52", transition_flag: "green",  mix_note: "Smooth 2-Tone closer — shuffling groove and melodic hooks wind the set down perfectly" },
 ];
                
 function timeToSeconds(t) {
@@ -87,6 +87,12 @@ const KEY_COLORS = {
 function keyColor(key) {
   return KEY_COLORS[key] || "#888";
 }
+
+const TRANSITION_FLAG_STYLES = {
+  green:  { bg: "#16a34a28", color: "#4ade80", border: "#16a34a55", label: "Great" },
+  yellow: { bg: "#d9770628", color: "#fbbf24", border: "#d9770655", label: "Okay"  },
+  red:    { bg: "#dc262628", color: "#f87171", border: "#dc262655", label: "Bad"   },
+};
 
 function SetTable({ tracks, accentColor }) {
   const [sortField, setSortField] = useState("order");
@@ -143,7 +149,7 @@ function SetTable({ tracks, accentColor }) {
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
           <thead>
             <tr style={{ borderBottom: `2px solid ${accentColor}` }}>
-              {["#","Artist","Track","Album","BPM","Key","Genre","Length","Mix Note"].map(h => (
+              {["#","Artist","Track","Album","BPM","Key","Transition Quality","Genre","Length","Mix Note"].map(h => (
                 <th key={h} style={{
                   textAlign: "left", padding: "10px 10px",
                   fontSize: 10, fontWeight: 700, letterSpacing: "0.15em",
@@ -172,6 +178,20 @@ function SetTable({ tracks, accentColor }) {
                     borderRadius: 4, padding: "2px 7px",
                     fontSize: 11, fontWeight: 700,
                   }}>{t.key}</span>
+                </td>
+                <td style={{ padding: "12px 10px" }}>
+                  {t.transition_flag && (() => {
+                    const s = TRANSITION_FLAG_STYLES[t.transition_flag];
+                    return (
+                      <span style={{
+                        background: s.bg,
+                        color: s.color,
+                        border: `1px solid ${s.border}`,
+                        borderRadius: 4, padding: "2px 8px",
+                        fontSize: 11, fontWeight: 700, whiteSpace: "nowrap",
+                      }}>{s.label}</span>
+                    );
+                  })()}
                 </td>
                 <td style={{ padding: "12px 10px", color: "#555", fontSize: 11 }}>{t.genre}</td>
                 <td style={{ padding: "12px 10px", color: "#666", fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap" }}>{t.length}</td>
